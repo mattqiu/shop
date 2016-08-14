@@ -7,4 +7,4 @@
 //调试模式
 define('APP_DEBUG', true);
 
-include "../ThinkPHP/ThinkPHP.php";
+include "./ThinkPHP/ThinkPHP.php";

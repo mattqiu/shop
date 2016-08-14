@@ -2,6 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" charset="utf-8" src="<?php echo C('PLUGIN');?>ueditor/ueditor.config.js"></script>
+  <script type="text/javascript" charset="utf-8" src="<?php echo C('PLUGIN');?>ueditor/ueditor.all.min.js"> </script>
+  <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+  <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+  <script type="text/javascript" charset="utf-8" src="<?php echo C('PLUGIN');?>ueditor/lang/zh-cn/zh-cn.js"></script>
 <title>无标题文档</title>
 <style type="text/css">
 <!--
@@ -61,7 +66,9 @@ a:visited{
     </table></td>
   </tr>
   <tr>
-    <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+    <td>
+      <form action="/index.php/Admin/Goods/tianjia.html" method="post">
+      <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
       <tr>
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">商品名称：</span></div></td>
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
@@ -70,25 +77,37 @@ a:visited{
       </tr>
       <tr>
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">价格：</span></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_name" /></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_price" /></div></td>
       </tr>
       <tr>
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">数量：</span></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_name" /></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_number" /></div></td>
       </tr>
       <tr>
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">重量：</span></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_name" /></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_weight" /></div></td>
       </tr>
       <tr>
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">详情描述：</span></div></td>
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
-        <textarea rows="5" cols="30"></textarea>
+        <textarea rows="5" cols="30" name="goods_introduce" id="editor" style="width:650px;height:260px;"></textarea>
         </div></td>
       </tr>
+        <tr>
+          <td height="20" bgcolor="#FFFFFF" class="STYLE6"></td>
+          <td height="20" bgcolor="#FFFFFF" class="STYLE19">
+            <input type="submit" value="提交">
+          </td>
+        </tr>
     </table>
+      </form>
     </td>
   </tr>
 </table>
 </body>
+<script>
+  //实例化编辑器
+  //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+  var ue = UE.getEditor('editor');
+</script>
 </html>
