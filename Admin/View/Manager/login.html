@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="top">  </div>
-<form id="login" name="login" action="main.php" method="post">
+<form id="login" name="login" action="{:U('login')}" method="post">
   <div id="center">
     <div id="center_left"></div>
     <div id="center_middle">
@@ -26,7 +26,8 @@
         <label>验证码：
         <input name="chknumber" type="text" id="chknumber" maxlength="4" class="chknumber_input" />
         </label>
-        <img src="{:C('AD_IMG_URL')}checkcode.png" id="safecode" />
+        <img src="{:U('checkimg')}"
+             onclick="this.src=this.src+'?'+Math.random()" id="safecode" />
       </div>
     </div>
     <div id="center_middle_right"></div>

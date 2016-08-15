@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <script type="text/javascript" charset="utf-8" src="{:C('PLUGIN')}ueditor/ueditor.config.js"></script>
-  <script type="text/javascript" charset="utf-8" src="{:C('PLUGIN')}ueditor/ueditor.all.min.js"> </script>
+  <script type="text/javascript" charset="utf-8" src="<?php echo C('PLUGIN');?>ueditor/ueditor.config.js"></script>
+  <script type="text/javascript" charset="utf-8" src="<?php echo C('PLUGIN');?>ueditor/ueditor.all.min.js"> </script>
   <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
   <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-  <script type="text/javascript" charset="utf-8" src="{:C('PLUGIN')}ueditor/lang/zh-cn/zh-cn.js"></script>
-  <script type="text/javascript" charset="utf-8" src="{:C('JS_URL')}jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="<?php echo C('PLUGIN');?>ueditor/lang/zh-cn/zh-cn.js"></script>
+  <script type="text/javascript" charset="utf-8" src="<?php echo C('JS_URL');?>jquery-1.8.3.min.js"></script>
 <title>无标题文档</title>
 <style type="text/css">
 <!--
@@ -54,12 +54,12 @@ a:visited{
           <tr>
             <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="6%" height="19" valign="bottom"><div align="center"><img src="{:C('AD_IMG_URL')}tb.gif" width="14" height="14" /></div></td>
+                <td width="6%" height="19" valign="bottom"><div align="center"><img src="<?php echo C('AD_IMG_URL');?>tb.gif" width="14" height="14" /></div></td>
                 <td width="94%" valign="bottom"><span class="STYLE1"> 商品管理 -> 添加商品</span></td>
               </tr>
             </table></td>
             <td><div align="right"><span class="STYLE1"> 
-            <a href="{:U('showlist')}">返回</a>   &nbsp; </span>
+            <a href="<?php echo U('showlist');?>">返回</a>   &nbsp; </span>
               <span class="STYLE1"> &nbsp;</span></div></td>
           </tr>
         </table>
@@ -153,31 +153,31 @@ a:visited{
         })
       </script>
 
-      <form action="__SELF__" method="post" enctype="multipart/form-data">
+      <form action="/index.php/Admin/Goods/update/goods_id/3.html" method="post" enctype="multipart/form-data">
 
       <table id="general-tab-show" width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
       <tr>
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">商品名称：</span></div></td>
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
-        <input type="text" name="goods_name"  value="{$good.goods_name}"/>
-          <input type="hidden" name="goods_id" value="{$good.goods_id}" />
+        <input type="text" name="goods_name"  value="<?php echo ($good["goods_name"]); ?>"/>
+          <input type="hidden" name="goods_id" value="<?php echo ($good["goods_id"]); ?>" />
         </div></td>
       </tr>
       <tr>
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">价格：</span></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_price" value="{$good.goods_price}" /></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_price" value="<?php echo ($good["goods_price"]); ?>" /></div></td>
       </tr>
       <tr>
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">数量：</span></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_number" value="{$good.goods_number}" /></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_number" value="<?php echo ($good["goods_number"]); ?>" /></div></td>
       </tr>
       <tr>
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">重量：</span></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_weight" value="{$good.goods_weight}" /></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="text" name="goods_weight" value="<?php echo ($good["goods_weight"]); ?>" /></div></td>
       </tr>
         <tr>
           <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">logo图片：</span></div></td>
-          <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="file" name="goods_file" /><img src="{:C('SITE_URL')}{$good.goods_small_logo}" alt="{$good.goods_name}">
+          <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><input type="file" name="goods_file" /><img src="<?php echo C('SITE_URL'); echo ($good["goods_small_logo"]); ?>" alt="<?php echo ($good["goods_name"]); ?>">
             </td>
         </tr>
 
@@ -187,7 +187,7 @@ a:visited{
           <tr>
             <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">详情描述：</span></div></td>
             <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
-              <textarea rows="5" cols="30" name="goods_introduce" id="editor" style="width:650px;height:260px;">{$good.goods_introduce}</textarea>
+              <textarea rows="5" cols="30" name="goods_introduce" id="editor" style="width:650px;height:260px;"><?php echo ($good["goods_introduce"]); ?></textarea>
             </div></td>
           </tr>
         </table>
@@ -218,7 +218,7 @@ a:visited{
           //删除单个相册图片
           function del_pics(pics_id) {
             $.ajax({
-              url:"{:U('delPics')}",
+              url:"<?php echo U('delPics');?>",
               data:{'pics_id':pics_id},
               dataType:'html',
               type:'get',
@@ -230,12 +230,10 @@ a:visited{
         </script>
         <table id="gallery-tab-show" width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce" style="display: none">
         <tr><td colspan="2">
-          <foreach name="pc" item="img">
-            <li style="list-style: none; float: left;" id="pic_show_{$img.pics_id}">
-              <img width="180" height="180" src="{:C('SITE_URL')}{$img.pics_mid}" alt="">
-              <span style="color: #ff0705" onclick="del_pics({$img.pics_id})">[-]</span>
-            </li>
-          </foreach></td>
+          <?php if(is_array($pc)): foreach($pc as $key=>$img): ?><li style="list-style: none; float: left;" id="pic_show_<?php echo ($img["pics_id"]); ?>">
+              <img width="180" height="180" src="<?php echo C('SITE_URL'); echo ($img["pics_mid"]); ?>" alt="">
+              <span style="color: #ff0705" onclick="del_pics(<?php echo ($img["pics_id"]); ?>)">[-]</span>
+            </li><?php endforeach; endif; ?></td>
           </tr>
           <tr>
             <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19" onclick="add_pics_item(this)">[+]商品相册：</span></div></td>

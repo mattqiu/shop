@@ -86,9 +86,9 @@ a:visited{
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">{$good.goods_number}</div></td>
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">{$good.goods_weight}</div></td>
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">{$good.add_time|date="Y-m-d H:i:s",###}</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">{$good.goods_introduce|html_entity_decode}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><img width="60" height="60" src="{:C('SITE_URL')}{$good.goods_small_logo|substr=###,2}" alt="商品缩略图"></div></td>
         <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE21">
-        <img src="{:C('AD_IMG_URL')}del.gif" width="10" height="10" /> 删除 | 查看 | <img src="{:C('AD_IMG_URL')}edit.gif" width="10" height="10" /> 编辑</span></div></td>
+        <img src="{:C('AD_IMG_URL')}del.gif" width="10" height="10" /> 删除 | 查看 |<a href="{:U('update', array('goods_id'=>$good['goods_id']))}"> <img src="{:C('AD_IMG_URL')}edit.gif" width="10" height="10" /> 编辑</a></span></div></td>
       </tr>
       </volist>
     </table></td>

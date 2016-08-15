@@ -85,9 +85,9 @@ a:visited{
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($good["goods_number"]); ?></div></td>
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($good["goods_weight"]); ?></div></td>
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo (date("Y-m-d H:i:s",$good["add_time"])); ?></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo (html_entity_decode($good["goods_introduce"])); ?></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><img width="60" height="60" src="<?php echo C('SITE_URL'); echo (substr($good["goods_small_logo"],2)); ?>" alt="商品缩略图"></div></td>
         <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE21">
-        <img src="<?php echo C('AD_IMG_URL');?>del.gif" width="10" height="10" /> 删除 | 查看 | <img src="<?php echo C('AD_IMG_URL');?>edit.gif" width="10" height="10" /> 编辑</span></div></td>
+        <img src="<?php echo C('AD_IMG_URL');?>del.gif" width="10" height="10" /> 删除 | 查看 |<a href="<?php echo U('update', array('goods_id'=>$good['goods_id']));?>"> <img src="<?php echo C('AD_IMG_URL');?>edit.gif" width="10" height="10" /> 编辑</a></span></div></td>
       </tr><?php endforeach; endif; else: echo "" ;endif; ?>
     </table></td>
   </tr>
