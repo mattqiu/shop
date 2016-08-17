@@ -64,34 +64,30 @@
         </table></td>
     </tr>
 
-
-  <tr>
+<tr>
     <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
       <tr>
         <td width="4%" height="20" bgcolor="d3eaef" class="STYLE10"><div align="center">
           <input type="checkbox" name="checkbox" id="checkbox" />
         </div></td>
-        <td width="7%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">商品名称</span></div></td>
-        <td width="8%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">价格</span></div></td>
-        <td width="8%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">数量</span></div></td>
-        <td width="8%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">重量</span></div></td>
-        <td width="9%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">添加时间</span></div></td>
-        <td width="25%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">详情</span></div></td>
+        <td width="7%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">角色名称</span></div></td>
+        <td width="8%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">权限ids</span></div></td>
+        <td width="8%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">权限具体名称</span></div></td>
+
         <td width="14%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">基本操作</span></div></td>
       </tr>
 
-      <?php if(is_array($info)): $i = 0; $__LIST__ = $info;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$good): $mod = ($i % 2 );++$i;?><tr>
+      <?php if(is_array($info)): $i = 0; $__LIST__ = $info;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$role): $mod = ($i % 2 );++$i;?><tr>
         <td height="20" bgcolor="#FFFFFF"><div align="center">
           <input type="checkbox" name="checkbox3" id="checkbox3" />
         </div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($good["goods_name"]); ?></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($good["goods_price"]); ?></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($good["goods_number"]); ?></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($good["goods_weight"]); ?></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo (date("Y-m-d H:i:s",$good["add_time"])); ?></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><img width="60" height="60" src="<?php echo C('SITE_URL'); echo (substr($good["goods_small_logo"],2)); ?>" alt="商品缩略图"></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($role["role_name"]); ?></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($role["role_auth_ids"]); ?></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($role["role_auth_ac"]); ?></div></td>
+
         <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE21">
-        <img src="<?php echo C('AD_IMG_URL');?>del.gif" width="10" height="10" /> 删除 | 查看 |<a href="<?php echo U('update', array('goods_id'=>$good['goods_id']));?>"> <img src="<?php echo C('AD_IMG_URL');?>edit.gif" width="10" height="10" /> 编辑</a></span></div></td>
+          <a href="<?php echo U('distribute', array('role_id'=>$role['role_id']));?>" style="color: #3B6375"> 分配权限|</a>
+        <img src="<?php echo C('AD_IMG_URL');?>del.gif" width="10" height="10" /> 删除 | 查看 </span></div></td>
       </tr><?php endforeach; endif; else: echo "" ;endif; ?>
     </table></td>
   </tr>
@@ -117,7 +113,6 @@
     </table></td>
   </tr>
 </table>
-
 
 </body>
 </html>

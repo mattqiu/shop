@@ -70,35 +70,11 @@ a:link{
 <body>
 <div  style="height:100%;">
   <ul id="navigation">
-    <li> <a class="head">商品管理</a>
+	  <?php if(is_array($authInfoA)): foreach($authInfoA as $key=>$v): ?><li> <a class="head"><?php echo ($v["auth_name"]); ?></a>
       <ul>
-        <li><a href="<?php echo U('Goods/showlist');?>" target="rightFrame">商品列表</a></li>
-        <li><a href="Articles.php" target="rightFrame">商品分类</a></li>
-      </ul>
-    </li>
-    <li> <a class="head">分类管理</a>
-      <ul>
-        <li><a href="AddKind.php" target="rightFrame">添加分类</a></li>
-        <li><a href="Kinds.php" target="rightFrame">查看/删除分类</a></li>
-      </ul>
-    </li>
-    <li> <a class="head">留言评论管理</a>
-      <ul>
-        <li><a href="messages.php" target="rightFrame">查看/删除留言</a></li>
-        <li><a href="comments.php" target="rightFrame">查看/删除评论</a></li>
-      </ul>
-    </li>
-    <li> <a class="head">友情链接管理</a>
-      <ul>
-        <li><a href="AddLink.php" target="rightFrame">添加友情链接</a></li>
-        <li><a href="Links.php" target="rightFrame">查看/修改友情链接</a></li>
-      </ul>
-    </li>
-    <li> <a class="head">版本信息</a>
-      <ul>
-        <li><a href="http://Www.865171.cn" target="_blank">by Jessica(865171.cn)</a></li>
-      </ul>
-    </li>
+		  <?php if(is_array($authInfoB)): foreach($authInfoB as $key=>$vv): if(($vv["auth_pid"]) == $v["auth_id"]): ?><li><a href="/index.php/Admin/<?php echo ($vv["auth_c"]); ?>/<?php echo ($vv["auth_a"]); ?>" target="rightFrame"><?php echo ($vv["auth_name"]); ?></a></li><?php endif; endforeach; endif; ?>
+	  </ul>
+    </li><?php endforeach; endif; ?>
   </ul>
 </div>
 </body>

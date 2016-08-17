@@ -9,12 +9,26 @@ class GoodsController extends Controller
 {
     public function showlist()
     {
+        $daohang = array(
+            'first'  =>  '商品管理',
+            'second' =>  '商品列表',
+            'third'  =>  '添加',
+            'url'    =>  U('Goods/tianjia'),
+        );
+        $this->assign('daohang', $daohang);
         $info = M('Goods')->select();
         $this -> assign('info', $info);
         $this -> display();
     }
     public function tianjia()
     {
+        $daohang = array(
+            'first'  =>  '商品管理',
+            'second' =>  '添加商品',
+            'third'  =>  '返回',
+            'url'    =>  U('Goods/showlist'),
+        );
+        $this->assign('daohang', $daohang);
         if (IS_POST) {
             $this->deal_logo();
             $data = I('post.');
@@ -117,6 +131,13 @@ class GoodsController extends Controller
     //修改商品
     public function update()
     {
+        $daohang = array(
+            'first'  =>  '商品管理',
+            'second' =>  '修改商品',
+            'third'  =>  '返回',
+            'url'    =>  U('Goods/showlist'),
+        );
+        $this->assign('daohang', $daohang);
         $goods_id = I('get.goods_id');
         $goods = M('Goods');
         if (IS_POST) {

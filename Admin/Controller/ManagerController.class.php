@@ -11,6 +11,7 @@ class ManagerController extends Controller
 {
     public function login()
     {
+        layout(false);
         if (IS_POST) {
             $info = I('post.');
             $verify = new \Think\Verify();
@@ -22,6 +23,8 @@ class ManagerController extends Controller
                 $map['mg_pwd']  = md5($info['pwd']);
                 $rs = $model->where($map)->find();
                 if ($rs) {
+                    session('name', $rs['mg_name']);
+                    session('id', $rs['mg_id']);
                     $this->success('登录成功！', U('Index/index'), 1);
                 } else {
                     $this->error('登录失败！', U('login'), 1);
@@ -30,6 +33,11 @@ class ManagerController extends Controller
         } else {
             $this->display();
         }
+    }
+    public function loginout()
+    {
+        session(null);
+        $this->success('退出成功!', U('Manager/login'), 3);
     }
     public function checkimg()
     {
