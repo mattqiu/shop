@@ -59,6 +59,16 @@ class IndexController extends Controller
                         'in',$auth_ids
                     )))
                 ->select();
+            if (!$authInfoA) {
+                $authInfoA = M('Auth')
+                                ->distinct(true)
+                                ->field('auth_pid')
+                                ->where("auth_id in ($auth_ids)")
+                                ->select();
+                foreach ($authInfoA as $k => &$v) {
+                    $v = M('Auth')->where(array('auth_id'=>$v['auth_pid'],'auth_level'=>0))->find();
+                }
+            }
             $authInfoB = M('Auth')
                 ->where(array(
                     'auth_level'=>1,
