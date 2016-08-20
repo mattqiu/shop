@@ -4,8 +4,10 @@
  * Date: 2016/8/14 11:17
  */
 namespace Admin\Controller;
-use Think\Controller;
-class IndexController extends Controller
+
+use Tools\AdminController;
+
+class IndexController extends AdminController
 {
     public function __construct()
     {

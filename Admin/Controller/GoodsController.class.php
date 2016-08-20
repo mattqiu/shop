@@ -4,8 +4,10 @@
  * Date: 2016/8/14 11:48
  */
 namespace Admin\Controller;
-use Think\Controller;
-class GoodsController extends Controller
+
+use Tools\AdminController;
+
+class GoodsController extends AdminController
 {
     public function showlist()
     {
@@ -44,6 +46,8 @@ class GoodsController extends Controller
                 $this->error('添加商品失败！', U('tianjia'), 1);
             }
         } else {
+            $typeinfo = M('Type')->select();
+            $this->assign('typeinfo', $typeinfo);
             $this->display();
         }
     }
@@ -170,5 +174,15 @@ class GoodsController extends Controller
         unlink($picsinfo['pics_mid']);
         unlink($picsinfo['pics_sma']);
         M('GoodsPics')->delete($pics_id);
+    }
+
+    public function getAttrInfoByType()
+    {
+        $type_id = I('get.type_id');
+        $attrinfo = M('Attribute')
+                    ->where(array('type_id'=>$type_id))
+                    ->field('attr_id,attr_name,attr_sel,attr_vals')
+                    ->select();
+        echo json_encode($attrinfo);
     }
 }

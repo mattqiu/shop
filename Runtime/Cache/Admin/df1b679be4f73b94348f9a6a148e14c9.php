@@ -73,22 +73,16 @@
 
 
 
+            <form action="/index.php/Admin/Type/tianjia.html" method="post" enctype="multipart/form-data">
 
-            <form action="/index.php/Admin/Role/distribute/role_id/51.html" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="role_id" value="<?php echo ($roleinfo["role_id"]); ?>">
                 <table id="general-tab-show" width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
                     <tr>
-                        <td>当前正在给 <span style="color: #ff020c">【<?php echo ($roleinfo["role_name"]); ?>】</span> 分配权限</td>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">类型名称：</span></div></td>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
+                            <input type="text" name="type_name" />
+                        </div></td>
                     </tr>
-                    <?php if(is_array($authInfoA)): foreach($authInfoA as $key=>$v): ?><tr>
-                        <td width="15%" height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">
-                            <input type="checkbox" name="authid[]" <?php if(in_array(($v["auth_id"]), is_array($roleinfo['role_auth_ids'])?$roleinfo['role_auth_ids']:explode(',',$roleinfo['role_auth_ids']))): ?>checked=checked<?php endif; ?> value="<?php echo ($v["auth_id"]); ?>"><?php echo ($v["auth_name"]); ?></span></div></td>
-                        <td  height="20" bgcolor="#FFFFFF" class="STYLE19">
-                            <?php if(is_array($authInfoB)): foreach($authInfoB as $key=>$vv): if(($vv["auth_pid"]) == $v["auth_id"]): ?><div style="width: 200px; float: left">
-                                <input type="checkbox" <?php if(in_array(($vv["auth_id"]), is_array($roleinfo['role_auth_ids'])?$roleinfo['role_auth_ids']:explode(',',$roleinfo['role_auth_ids']))): ?>checked=checked<?php endif; ?> name="authid[]" value="<?php echo ($vv["auth_id"]); ?>"><?php echo ($vv["auth_name"]); ?>
-                        </div><?php endif; endforeach; endif; ?>
-                        </td>
-                    </tr><?php endforeach; endif; ?>
+
 
 
 
@@ -98,7 +92,7 @@
                     <tr>
                         <td height="20" bgcolor="#FFFFFF" class="STYLE6"></td>
                         <td height="20" bgcolor="#FFFFFF" class="STYLE19" align="center">
-                            <input type="submit" value="分配权限">
+                            <input type="submit" value="添加类型">
                         </td>
                     </tr>
                 </table>

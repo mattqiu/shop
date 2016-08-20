@@ -5,10 +5,10 @@
  */
 namespace Admin\Controller;
 
-use Think\Auth;
-use Think\Controller;
 
-class RoleController extends Controller{
+use Tools\AdminController;
+
+class RoleController extends AdminController{
     public function showlist()
     {
         $daohang = array(

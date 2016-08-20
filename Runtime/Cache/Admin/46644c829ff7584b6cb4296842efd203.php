@@ -73,22 +73,47 @@
 
 
 
+            <form action="/index.php/Admin/Attribute/tianjia.html" method="post" enctype="multipart/form-data">
 
-            <form action="/index.php/Admin/Role/distribute/role_id/51.html" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="role_id" value="<?php echo ($roleinfo["role_id"]); ?>">
                 <table id="general-tab-show" width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
                     <tr>
-                        <td>当前正在给 <span style="color: #ff020c">【<?php echo ($roleinfo["role_name"]); ?>】</span> 分配权限</td>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">属性名称：</span></div></td>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
+                            <input type="text" name="attr_name" />
+                            <span style="color: rgb(255, 0, 9)">*</span>
+                        </div></td>
                     </tr>
-                    <?php if(is_array($authInfoA)): foreach($authInfoA as $key=>$v): ?><tr>
-                        <td width="15%" height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">
-                            <input type="checkbox" name="authid[]" <?php if(in_array(($v["auth_id"]), is_array($roleinfo['role_auth_ids'])?$roleinfo['role_auth_ids']:explode(',',$roleinfo['role_auth_ids']))): ?>checked=checked<?php endif; ?> value="<?php echo ($v["auth_id"]); ?>"><?php echo ($v["auth_name"]); ?></span></div></td>
-                        <td  height="20" bgcolor="#FFFFFF" class="STYLE19">
-                            <?php if(is_array($authInfoB)): foreach($authInfoB as $key=>$vv): if(($vv["auth_pid"]) == $v["auth_id"]): ?><div style="width: 200px; float: left">
-                                <input type="checkbox" <?php if(in_array(($vv["auth_id"]), is_array($roleinfo['role_auth_ids'])?$roleinfo['role_auth_ids']:explode(',',$roleinfo['role_auth_ids']))): ?>checked=checked<?php endif; ?> name="authid[]" value="<?php echo ($vv["auth_id"]); ?>"><?php echo ($vv["auth_name"]); ?>
-                        </div><?php endif; endforeach; endif; ?>
-                        </td>
-                    </tr><?php endforeach; endif; ?>
+                    <tr>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">商品类型：</span></div></td>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
+                            <select name="type_id" >
+                                <option value="0">-请选择-</option>
+                                <?php if(is_array($typeinfo)): foreach($typeinfo as $key=>$v): ?><option value="<?php echo ($v["type_id"]); ?>"><?php echo ($v["type_name"]); ?></option><?php endforeach; endif; ?>
+                            </select>
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">单选/多选属性：</span></div></td>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
+                            <input type="radio" name="attr_sel" checked="checked" value="0" />单选
+                            <input type="radio" name="attr_sel" value="1" />多选
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">请选择值得录入方式：</span></div></td>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
+                            <input type="radio" name="attr_write" checked="checked" value="0" />手工录入
+                            <input type="radio" name="attr_write" value="1" />从下面列表选取
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">可选值列表：</span></div></td>
+                        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
+                            <textarea name="attr_vals"  cols="30" rows="5"></textarea>
+                            <span style="color: rgba(119, 105, 68, 0.67)">多个可选值中间使用“,”分割</span>
+                        </div></td>
+                    </tr>
+
 
 
 
@@ -98,7 +123,7 @@
                     <tr>
                         <td height="20" bgcolor="#FFFFFF" class="STYLE6"></td>
                         <td height="20" bgcolor="#FFFFFF" class="STYLE19" align="center">
-                            <input type="submit" value="分配权限">
+                            <input type="submit" value="添加属性">
                         </td>
                     </tr>
                 </table>

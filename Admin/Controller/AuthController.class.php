@@ -5,9 +5,9 @@
  */
 namespace Admin\Controller;
 
-use Think\Controller;
+use Tools\AdminController;
 
-class AuthController extends Controller
+class AuthController extends AdminController
 {
     public function showlist()
     {
