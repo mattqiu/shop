@@ -1,0 +1,96 @@
+[ 2016-08-22T14:25:36+08:00 ] 127.0.0.1 /index.php/Admin/Index/index.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000050s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000129s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.018765s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019274s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000477s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000553s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000557s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000614s ]
+
+[ 2016-08-22T14:25:37+08:00 ] 127.0.0.1 /index.php/Admin/Index/head.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000072s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000161s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.037830s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.038553s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000314s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000368s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000526s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000653s ]
+
+[ 2016-08-22T14:25:37+08:00 ] 127.0.0.1 /index.php/Admin/Index/down.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000059s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000166s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.061628s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.062778s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000525s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000582s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000945s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001027s ]
+
+[ 2016-08-22T14:25:37+08:00 ] 127.0.0.1 /index.php/Admin/Index/center.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000057s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000196s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.042994s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.043703s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000757s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000911s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000960s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001092s ]
+
+[ 2016-08-22T14:25:37+08:00 ] 127.0.0.1 /index.php/Admin/Index/right.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000097s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000221s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.010952s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011685s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000540s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000656s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000950s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001098s ]
+
+[ 2016-08-22T14:25:43+08:00 ] 127.0.0.1 /index.php/Admin/Goods/getAttrInfoByType2?type_id=1&goods_id=4
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000874s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001426s ]
+SQL: SHOW COLUMNS FROM `sp_manager` [ RunTime:0.0075s ]
+SQL: SELECT r.role_auth_ac FROM sp_manager m left join sp_role r on m.role_id=r.role_id  WHERE ( m.mg_id=1 ) LIMIT 1   [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `sp_attribute` [ RunTime:0.0087s ]
+SQL: SELECT a.attr_id,a.attr_name,a.attr_sel,a.attr_vals,group_concat(ga.attr_value) as attr_values FROM sp_attribute a left join sp_goods_attr ga on a.attr_id=ga.attr_id  WHERE a.type_id = '1' AND ga.goods_id = '4' GROUP BY a.attr_id  [ RunTime:0.0031s ]
+SQL: SELECT `attr_id`,`attr_name`,`attr_sel`,`attr_vals` FROM `sp_attribute` WHERE `type_id` = 1  [ RunTime:0.0016s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001495s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001622s ]
+
+[ 2016-08-22T14:28:51+08:00 ] 127.0.0.1 /index.php/Admin/Goods/getAttrInfoByType2?type_id=1&goods_id=4
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000860s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001573s ]
+SQL: SHOW COLUMNS FROM `sp_manager` [ RunTime:0.0086s ]
+SQL: SELECT r.role_auth_ac FROM sp_manager m left join sp_role r on m.role_id=r.role_id  WHERE ( m.mg_id=1 ) LIMIT 1   [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `sp_attribute` [ RunTime:0.0072s ]
+SQL: SELECT a.attr_id,a.attr_name,a.attr_sel,a.attr_vals,group_concat(ga.attr_value) as attr_values FROM sp_attribute a left join sp_goods_attr ga on a.attr_id=ga.attr_id  WHERE a.type_id = '1' AND ga.goods_id = '4' GROUP BY a.attr_id  [ RunTime:0.0012s ]
+SQL: SELECT `attr_id`,`attr_name`,`attr_sel`,`attr_vals` FROM `sp_attribute` WHERE `type_id` = 1  [ RunTime:0.0008s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001170s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001287s ]
+

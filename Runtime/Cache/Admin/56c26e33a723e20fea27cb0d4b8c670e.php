@@ -157,7 +157,7 @@
         })
       </script>
 
-      <form action="/index.php/Admin/Goods/tianjia.html" method="post" enctype="multipart/form-data">
+      <form action="/index.php/Admin/Goods/tianjia" method="post" enctype="multipart/form-data">
 
       <table id="general-tab-show" width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
       <tr>
@@ -218,14 +218,14 @@
                 var s = "";
                 $.each(msg,function(n,v){
                   if (v.attr_sel == '1') {
-                    s += '<tr><td height="20" bgcolor="#FFFFFF" class="STYLE6 STYLE19"><div align="right"><span onclick="add_attr(this)">[+]</span><font>'+v.attr_name+'</font></span></div></td><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="left"><select><option value="0">-请选择-</option>';
+                    s += '<tr><td height="20" bgcolor="#FFFFFF" class="STYLE6 STYLE19"><div align="right"><span onclick="add_attr(this)">[+]</span><font>'+v.attr_name+'</font></span></div></td><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="left"><select name="goods_attr_id['+v.attr_id+'][]"><option value="0">-请选择-</option>';
                     var attrvals = v.attr_vals.split(',');
                     for (var i=0;i<attrvals.length;i++) {
                       s += "<option value='"+attrvals[i]+"'>"+attrvals[i]+"</option>";
                     }
                     s += "</select></div></td></tr>";
                   } else {
-                    s += '<tr><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">'+v.attr_name+'</span></div></td><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="left"><span class="STYLE19"><input type="text"></span></div></td></tr>';
+                    s += '<tr><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">'+v.attr_name+'</span></div></td><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="left"><span class="STYLE19"><input type="text" name="goods_attr_id['+v.attr_id+'][]"></span></div></td></tr>';
                   }
 
                 });

@@ -41,6 +41,7 @@ class GoodsController extends AdminController
             if ($newid = $goods->add($data)) {
                 //相册上传
                 $this->deal_pics($newid); //添加、处理相册
+                $this->deal_attr($newid);
                 $this->success('添加商品成功！', U('showlist'), 1);
             } else {
                 $this->error('添加商品失败！', U('tianjia'), 1);
@@ -49,6 +50,26 @@ class GoodsController extends AdminController
             $typeinfo = M('Type')->select();
             $this->assign('typeinfo', $typeinfo);
             $this->display();
+        }
+    }
+    /*
+     * 给商品维护‘属性’信息
+     * 就是给goods_attr表填充信息
+     */
+    public function deal_attr($goods_id)
+    {
+        M('GoodsAttr')->where(array('goods_id'=>$goods_id))->delete();
+        foreach ($_POST['goods_attr_id'] as $k => $v){
+            //$k是属性的id值信息
+            foreach ($v as $vv) {
+                if (!empty($vv)) {
+                    //给sp_goods_attr表填充数据
+                    $arr['goods_id'] = $goods_id;
+                    $arr['attr_id'] = $k;
+                    $arr['attr_value'] = $vv;
+                    M('GoodsAttr')->add($arr);
+                }
+            }
         }
     }
     /*
@@ -149,6 +170,7 @@ class GoodsController extends AdminController
             $this->deal_logo();
 
             $this->deal_pics($goods_id);
+            $this->deal_attr($goods_id);
             $data = I('post.');
             $data['upd_time'] = time();
             $data['goods_introduce'] = fangXSS($_POST['goods_introduce']);
@@ -158,6 +180,9 @@ class GoodsController extends AdminController
                 $this->error('修改商品失败！');
             }
         } else {
+
+            $typeinfo = M('Type')->select();
+            $this->assign('typeinfo', $typeinfo);
             $info = $goods -> find($goods_id);
             $this->assign('good', $info);
             //获取商品相册信息
@@ -175,7 +200,7 @@ class GoodsController extends AdminController
         unlink($picsinfo['pics_sma']);
         M('GoodsPics')->delete($pics_id);
     }
-
+    //添加商品ajax
     public function getAttrInfoByType()
     {
         $type_id = I('get.type_id');
@@ -184,5 +209,34 @@ class GoodsController extends AdminController
                     ->field('attr_id,attr_name,attr_sel,attr_vals')
                     ->select();
         echo json_encode($attrinfo);
+    }
+    //修改商品ajax
+    //根据‘类型id’，‘商品id’获得对应的商品信息
+    public function getAttrInfoByType2()
+    {
+        $type_id = I('get.type_id');
+        $goods_id = I('get.goods_id');
+        //获取【实体】属性列表信息
+        $attrinfo1 = M('Attribute')
+                    ->alias('a')
+                    ->join('left join __GOODS_ATTR__ ga on a.attr_id=ga.attr_id')
+                    ->where(array('a.type_id'=>$type_id,'ga.goods_id'=>$goods_id))
+                    ->field('a.attr_id,a.attr_name,a.attr_sel,a.attr_vals,group_concat(ga.attr_value) as attr_values')
+                    ->group('a.attr_id')
+                    ->select();
+        //获取【空壳】属性列表信息
+        $attrinfo2 = M('Attribute')
+            ->where(array('type_id'=>$type_id))
+            ->field('attr_id,attr_name,attr_sel,attr_vals')
+            ->select();
+        foreach ($attrinfo2 as $k => $v) {
+            $newattrinfo[$v['attr_id']] = $v;
+            foreach ($attrinfo1 as $kk => $vv) {
+                if ($v['attr_id'] == $vv['attr_id']) {
+                    $newattrinfo[$v['attr_id']]['attr_values'] = $vv['attr_values'];
+                }
+            }
+        }
+        echo json_encode($newattrinfo);
     }
 }

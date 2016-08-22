@@ -98,7 +98,7 @@
         <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">商品名称：</span></div></td>
         <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left">
         <input type="text" name="goods_name"  value="{$good.goods_name}"/>
-          <input type="hidden" name="goods_id" value="{$good.goods_id}" />
+          <input type="hidden" id="goods_id" name="goods_id" value="{$good.goods_id}" />
         </div></td>
       </tr>
       <tr>
@@ -134,9 +134,94 @@
             <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">其它信息：</span></div></td>
           </tr>
         </table>
+        <script>
+          function add_attr(obj){
+            var futr = $(obj).parent().parent().parent().clone();
+            futr.find('span').remove();
+            futr.find('font').before('<span onclick="$(this).parent().parent().parent().remove()">[-]</span>');
+            $(obj).parent().parent().parent().after(futr);
+          }
+          //根据选取的类型，获得属性列表信息
+          function goods_attr_info(){
+            var type_id = $('#type_id').val();
+            var goods_id = $('#goods_id').val();
+            //走ajax，通过type_id去服务器获得对应的属性列表信息回来
+            $.ajax({
+              url:'/index.php/Admin/Goods/getAttrInfoByType2',
+              data:{'type_id':type_id,'goods_id':goods_id},
+              dataType:'json',
+              type:'get',
+              success:function (msg) {
+                var s = "";
+                $.each(msg,function(n,v){
+                  if (v.attr_sel == '1') {
+
+                    if (typeof v.attr_values=='undefined'){
+                      s += '<tr><td height="20" bgcolor="#FFFFFF" class="STYLE6 STYLE19"><div align="right"><span onclick="add_attr(this)">[+]</span><font>'+v.attr_name+'</font></span></div></td><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="left"><select name="goods_attr_id['+v.attr_id+'][]"><option value="0">-请选择-</option>';
+                      var attrvals = v.attr_vals.split(',');
+                      for (var i=0;i<attrvals.length;i++) {
+                        s += "<option value='"+attrvals[i]+"'>"+attrvals[i]+"</option>";
+                      }
+                      s += "</select></div></td></tr>";
+                    } else {
+                      var attr_values = v.attr_values.split(',');
+                      for (var m=0;m<attr_values.length;m++) {
+                        s += '<tr><td height="20" bgcolor="#FFFFFF" class="STYLE6 STYLE19"><div align="right">';
+                        if (m == 0) {
+                          s +='<span onclick="add_attr(this)">[+]</span>';
+                        } else {
+                          s += '<span onclick="$(this).parent().parent().parent().remove()">[-]</span>';
+                        }
+                        s+='<font>'+v.attr_name+'</font></span></div></td><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="left"><select name="goods_attr_id['+v.attr_id+'][]">';
+                        var attrvals = v.attr_vals.split(',');
+                        for (var i=0;i<attrvals.length;i++) {
+                          if (attr_values[m] == attrvals[i]) {
+                            s += "<option selected='selected' value='"+attrvals[i]+"'>"+attrvals[i]+"</option>";
+                          } else {
+                            s += "<option value='"+attrvals[i]+"'>"+attrvals[i]+"</option>";
+                          }
+
+                        }
+                        s += "</select></div></td></tr>";
+                      }
+                    }
+
+                  } else {
+                    s += '<tr><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">'+v.attr_name+'</span></div></td><td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="left"><span class="STYLE19">';
+                    if (typeof v.attr_values == 'undefined') {
+
+                      s +='<input type="text"  name="goods_attr_id['+v.attr_id+'][]">';
+                    } else {
+                      s +='<input type="text" value="'+v.attr_values+'" name="goods_attr_id['+v.attr_id+'][]">';
+                    }
+                    s += '</span></div></td></tr>';
+                  }
+
+                });
+                $('#properties-tab-show tr:gt(0)').remove();
+                $('#properties-tab-show').append(s);
+              }
+            });
+          }
+          $(function () {
+            goods_attr_info();
+          })
+        </script>
         <table id="properties-tab-show" width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce" style="display: none">
           <tr>
-            <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">商品属性：</span></div></td>
+            <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="right"><span class="STYLE19">商品类型：</span></div></td>
+            <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="left"><span class="STYLE19">
+              <select  name="type_id" id="type_id" onchange="goods_attr_info()">
+              <option value="0">--请选择--</option>
+                <foreach name="typeinfo" item="v">
+                  <eq name="good.type_id" value="$v.type_id">
+                  <option selected="selected" value="{$v.type_id}">{$v.type_name}</option>
+                  <else/>
+                     <option  value="{$v.type_id}">{$v.type_name}</option>
+                  </eq>
+                </foreach>
+            </select>
+            </span></div></td>
           </tr>
         </table>
         <script type="text/javascript">
