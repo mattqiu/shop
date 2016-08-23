@@ -43,6 +43,15 @@
 <div class="header w990 bc mt15">
     <div class="logo w990">
         <h2 class="fl"><a href="index.html"><img src="{:C('IMG_URL')}logo.png" alt="京西商城"></a></h2>
+       <eq name="Think.const.CONTROLLER_NAME" value="Shop">
+        <div class="flow fr {$Think.const.ACTION_NAME}">
+            <ul>
+                <li <eq name="Think.const.ACTION_NAME" value="flow1">class="cur"</eq> >1.我的购物车</li>
+                <li <eq name="Think.const.ACTION_NAME" value="flow2">class="cur"</eq> >2.填写核对订单信息</li>
+                <li <eq name="Think.const.ACTION_NAME" value="flow3">class="cur"</eq> >3.成功提交订单</li>
+            </ul>
+        </div>
+       </eq>
     </div>
 </div>
 <!-- 页面头部 end -->

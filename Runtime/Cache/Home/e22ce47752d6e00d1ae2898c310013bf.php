@@ -23,7 +23,9 @@
         </div>
         <div class="topnav_right fr">
             <ul>
-                <li>您好，欢迎来到京西！[<a href="login.html">登录</a>] [<a href="register.html">免费注册</a>] </li>
+                <?php if(!empty($_SESSION['user_name'])): ?><li>您好，<span style="color: #3914ff">【<?php echo (session('user_name')); ?>】</span>欢迎来到京西！[<a href="<?php echo U('User/login');?>">个人中心</a>] [<a href="<?php echo U('User/logout');?>">安全退出</a>] </li>
+                    <?php else: ?>
+                    <li>您好，欢迎来到京西！[<a href="<?php echo U('User/login');?>">登录</a>][<a href="register.html">免费注册</a>]</li><?php endif; ?>
                 <li class="line">|</li>
                 <li>我的订单</li>
                 <li class="line">|</li>
@@ -110,7 +112,7 @@
         <div class="cart fl">
             <dl>
                 <dt>
-                    <a href="">去购物车结算</a>
+                    <a href="<?php echo U('Shop/flow1');?>" target="_blank">去购物车结算</a>
                     <b></b>
                 </dt>
                 <dd>
@@ -413,7 +415,7 @@
         <div class="navitems fl">
             <ul class="fl">
                 <li class="current"><a href="">首页</a></li>
-                <li><a href="">电脑频道</a></li>
+                <li><a href="<?php echo U('Goods/showlist');?>" target="_blank">商品列表</a></li>
                 <li><a href="">家用电器</a></li>
                 <li><a href="">品牌大全</a></li>
                 <li><a href="">团购</a></li>

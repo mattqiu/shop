@@ -23,6 +23,11 @@ class UserController extends Controller
             if ($rst) {
                 session('user_name', $rst['user_name']);
                 session('user_id', $rst['user_id']);
+                $back_url = session('back_url');
+                if (!empty($back_url)) {
+                    session('back_url', null);
+                    $this->redirect($back_url);
+                }
                 $this->redirect('Index/index');
             } else {
                 $this->error('账号或者密码错误', U('login'), 1);

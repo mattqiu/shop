@@ -41,6 +41,13 @@
 <div class="header w990 bc mt15">
     <div class="logo w990">
         <h2 class="fl"><a href="index.html"><img src="<?php echo C('IMG_URL');?>logo.png" alt="京西商城"></a></h2>
+       <?php if((CONTROLLER_NAME) == "Shop"): ?><div class="flow fr">
+            <ul>
+                <li class="cur">1.我的购物车</li>
+                <li>2.填写核对订单信息</li>
+                <li>3.成功提交订单</li>
+            </ul>
+        </div><?php endif; ?>
     </div>
 </div>
 <!-- 页面头部 end -->

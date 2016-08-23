@@ -23,7 +23,9 @@
         </div>
         <div class="topnav_right fr">
             <ul>
-                <li>您好，欢迎来到京西！[<a href="login.html">登录</a>] [<a href="register.html">免费注册</a>] </li>
+                <?php if(!empty($_SESSION['user_name'])): ?><li>您好，<span style="color: #3914ff">【<?php echo (session('user_name')); ?>】</span>欢迎来到京西！[<a href="<?php echo U('User/login');?>">个人中心</a>] [<a href="<?php echo U('User/logout');?>">安全退出</a>] </li>
+                    <?php else: ?>
+                    <li>您好，欢迎来到京西！[<a href="<?php echo U('User/login');?>">登录</a>][<a href="register.html">免费注册</a>]</li><?php endif; ?>
                 <li class="line">|</li>
                 <li>我的订单</li>
                 <li class="line">|</li>
@@ -110,7 +112,7 @@
         <div class="cart fl">
             <dl>
                 <dt>
-                    <a href="">去购物车结算</a>
+                    <a href="<?php echo U('Shop/flow1');?>" target="_blank">去购物车结算</a>
                     <b></b>
                 </dt>
                 <dd>
@@ -413,7 +415,7 @@
         <div class="navitems fl">
             <ul class="fl">
                 <li class="current"><a href="">首页</a></li>
-                <li><a href="">电脑频道</a></li>
+                <li><a href="<?php echo U('Goods/showlist');?>" target="_blank">商品列表</a></li>
                 <li><a href="">家用电器</a></li>
                 <li><a href="">品牌大全</a></li>
                 <li><a href="">团购</a></li>
@@ -603,7 +605,7 @@
 										<?php else: ?>
 										<li>
 											<a<?php endif; ?>
-								 href="javascript:void(0);" rel="{gallery: 'gal1', smallimage: '<?php echo C('SITE_URL'); echo ($v["pics_big"]); ?>',largeimage: '<?php echo C('SITE_URL'); echo ($v["pics_mid"]); ?>'}"><img src="<?php echo C('SITE_URL'); echo ($v["pics_sma"]); ?>"></a>
+								 href="javascript:void(0);" rel="{gallery: 'gal1', smallimage: '<?php echo C('SITE_URL'); echo ($v["pics_mid"]); ?>',largeimage: '<?php echo C('SITE_URL'); echo ($v["pics_big"]); ?>'}"><img src="<?php echo C('SITE_URL'); echo ($v["pics_sma"]); ?>"></a>
 								</li><?php endforeach; endif; ?>
 							</ul>
 						</div>
@@ -650,7 +652,7 @@
 								<dl>
 									<dt>&nbsp;</dt>
 									<dd>
-										<input type="submit" value="" class="add_btn" />
+										<input type="button" onclick="add_cart(<?php echo ($goodsinfo["goods_id"]); ?>)" value="" id="add_btn" class="add_btn" />
 									</dd>
 								</dl>
 							</li>
@@ -915,11 +917,120 @@
 	
 
 	<div style="clear:both;"></div>
+<script>
+	function hideElement(id) {
+		$('#'+id).hide();
+	}
+</script>
+	<!-- 购物车弹出框 -->
+	<div class="buy_blank" id="cartBox" style="display:none;z-index:99;">
+		<h4>
+			<span><a href="javascript:;" onclick="hideElement('cartBox')"><img src="<?php echo C('IMG_URL');?>close.jpg" title="点击关闭"/></a></span>
+			该商品已成功添加到购物车
+		</h4>
+		<p style="padding-left:60px;">
+			购物车共计 <span class="orange"><strong id="goods_number"><!--<?php echo ($number_price["number"]); ?>--></strong></span> 个商品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			合计：<span class="orange"><strong id="goods_totalprice"><!--<?php echo ($number_price["price"]); ?>--></strong></span> 元
+		</p>
+		<p>
+			<a href="<?php echo U('Shop/flow1');?>" onclick="javascript:hideElement('cartBox')" class="bt_orange" target="_black"></a>
+			<a href="javascript:hideElement('cartBox')" class="bt_blue"></a>
+		</p>
+	</div>
+	<style type="text/css">
+		/*购物车弹出框*/
+		.orange{color: #CC0000;}
+		a.bt_orange:link,a.bt_orange:visited{color:#FFFFFF;width:107px; height:27px; line-height:27px;background:url(<?php echo C('IMG_URL');?>chakanBtn.jpg) no-repeat; text-align:center; font-weight:bold;cursor:pointer; display:block; _display:inline; float:left; margin-left:60px;}
+		a.bt_blue:link,a.bt_blue:visited{color:#FFFFFF;width:107px; height:27px; line-height:27px;background:url(<?php echo C('IMG_URL');?>tiaoxuannBtn.jpg) no-repeat; text-align:center; font-weight:bold;cursor:pointer;display:block;_display:inline; float:right; margin-right:60px;}
+		.buy_blank{ width:350px; height:115px; border:3px solid #AAAAAA; position:absolute; background-color:#FFFFFF;}
+		.buy_blank p{ line-height:30px;}
+		.buy_blank h4{ border-bottom:2px solid #D0D0D0; font-weight:normal; height:30px; line-height:30px;background:url(<?php echo C('IMG_URL');?>buyicon.jpg) no-repeat 10px center; text-indent:28px; margin-bottom:10px; padding-left:20px;}
+		.buy_blank h4 span{ float:right; margin:10px 10px 0 0}
+		img, fieldset {border:0 none;}
 
-
+		.number_change{cursor:pointer;}
+	</style>
 
 	<script type="text/javascript">
 		document.execCommand("BackgroundImageCache", false, true);
+		function add_cart(goods_id) {
+			$.ajax({
+				url:"<?php echo U('Shop/addCart');?>",
+				data:{'goods_id':goods_id},
+				dataType:'json',
+				type:'get',
+				success:function(msg){
+					$('#goods_number').html(msg.number);
+					$('#goods_totalprice').html(msg.price);
+					var btn_pos = getElementPos('add_btn');
+					$('#cartBox').css('left', btn_pos.x+50);
+					$('#cartBox').css('top', btn_pos.y+50);
+					$('#cartBox').show();
+				}
+			});
+		}
+
+		/*
+		 * 根据元素的id获得其坐标(x轴和y轴)
+		 */
+		function getElementPos(elementId) {
+			var ua = navigator.userAgent.toLowerCase();
+			var isOpera = (ua.indexOf('opera') != -1);
+			var isIE = (ua.indexOf('msie') != -1 && !isOpera); // not opera spoof
+			var el = document.getElementById(elementId);
+			if(el.parentNode === null || el.style.display == 'none') {
+				return false;
+			}
+			var parent = null;
+			var pos = [];
+			var box;
+			if(el.getBoundingClientRect) {   //IE
+				box = el.getBoundingClientRect();
+				var scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+				var scrollLeft = Math.max(document.documentElement.scrollLeft, document.body.scrollLeft);
+				return {
+					x:box.left + scrollLeft,
+					y:box.top + scrollTop
+				};
+			}else if(document.getBoxObjectFor) {   // gecko
+				box = document.getBoxObjectFor(el);
+				var borderLeft = (el.style.borderLeftWidth)?parseInt(el.style.borderLeftWidth):0;
+				var borderTop = (el.style.borderTopWidth)?parseInt(el.style.borderTopWidth):0;
+				pos = [box.x - borderLeft, box.y - borderTop];
+			}else {   // safari & opera
+				pos = [el.offsetLeft, el.offsetTop];
+				parent = el.offsetParent;
+				if (parent != el) {
+					while (parent) {
+						pos[0] += parent.offsetLeft;
+						pos[1] += parent.offsetTop;
+						parent = parent.offsetParent;
+					}
+				}
+				if (ua.indexOf('opera') != -1 || ( ua.indexOf('safari') != -1 && el.style.position == 'absolute' )) {
+					pos[0] -= document.body.offsetLeft;
+					pos[1] -= document.body.offsetTop;
+				}
+			}
+			if (el.parentNode) {
+				parent = el.parentNode;
+			} else {
+				parent = null;
+			}
+			while (parent && parent.tagName != 'BODY' && parent.tagName != 'HTML') { // account for any scrolled ancestors
+				pos[0] -= parent.scrollLeft;
+				pos[1] -= parent.scrollTop;
+				if (parent.parentNode) {
+					parent = parent.parentNode;
+				} else {
+					parent = null;
+				}
+			}
+			return {
+				x:pos[0],
+				y:pos[1]
+			};
+		}
 	</script>
 
 <!-- 底部导航 start -->
